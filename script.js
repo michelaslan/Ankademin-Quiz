@@ -1,3 +1,4 @@
+//Frågorna
 const questions = [
 {
     type: "trueFalse",
@@ -8,6 +9,8 @@ const questions = [
 {
     type: "multiChoise",
     question: 'Vilken datatyp är ["äpple", "päron", "banan"] i JavaScript?',
+    options: ["Object", "Sträng", "Array", "Number"],
+    values: [false, false, true, false],
     correctText: "Array",
     correctAnswer: true
 },
@@ -20,12 +23,13 @@ const questions = [
 {
     type: "check",
     question: "Vilka av dessa är programmeringsspråk?",
+    options: ["JavaScript", "TypeScript", "HTML", "CSS"],
+    values: [true, true, false, false],
     correctText: "JavaScript, TypeScript",
     correctAnswer: [true, true]
 },
-
 ];
-
+//Array som sparar input
 const userAnswers = [];
 
 let counter = 0;
@@ -62,45 +66,32 @@ function showMultiChoise () {
     container.innerHTML = `
         <h2>Fråga ${counter + 1}</h2>
         <h3> ${questions[counter].question} </h3>
-
+        `;
+    questions[counter].options.forEach((option, i) => {
+        const value = questions[counter].values[i];
+        container.innerHTML += `
         <label>
-            <input type="radio" name="multiSvar" value="false"> Objekt
+            <input type="radio" name="multiSvar" value="${value}"> ${option}
         </label>
         <br>
-        <label>
-            <input type="radio" name="multiSvar" value="false"> Sträng
-        </label>
-        <br>
-        <label>
-            <input type="radio" name="multiSvar" value="true"> Array
-        </label>
-        <br>
-        <label>
-            <input type="radio" name="multiSvar" value="false"> Nummer
-        </label>
-    `;
+        `
+        });
 }
+
 function showCheckQuestion () {
     container.innerHTML = `
         <h2>Fråga ${counter + 1}</h2>
         <h3> ${questions[counter].question} </h3>
-
+        `
+        questions[counter].options.forEach((option, i) => {
+        const value = questions[counter].values[i];
+        container.innerHTML += `
         <label>
-            <input type="checkbox" name="checkSvar" value="true"> JavaScript
+            <input type="checkbox" name="checkSvar" value="${value}"> ${option}
         </label>
         <br>
-        <label>
-            <input type="checkbox" name="checkSvar" value="true"> TypeScript
-        </label>
-        <br>
-        <label>
-            <input type="checkbox" name="checkSvar" value="false"> HTML
-        </label>
-        <br>
-        <label>
-            <input type="checkbox" name="checkSvar" value="false"> CSS
-        </label>
     `;
+        });
 }
 
 function nextButton () {
