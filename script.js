@@ -11,16 +11,18 @@ const questions = [
     correctText: "Array",
     correctAnswer: true
 },
-
-
-
-
-/*{
-    type: "truefalse",
+{
+    type: "trueFalse",
     question: "Ankademins frontendutbildning är 3 år lång",
     correctText: "Falskt",
     correctAnswer: false
-},*/
+},
+{
+    type: "check",
+    question: "Vilka av dessa är programmeringsspråk?",
+    correctText: "JavaScript, TypeScript",
+    correctAnswer: [true, true]
+},
 
 ];
 
@@ -52,6 +54,9 @@ function showQuestion (){
     else if (questions[counter].type === "multiChoise") {
         showMultiChoise (counter);
     }
+    else if (questions[counter].type === "check") {
+        showCheckQuestion (counter);
+    }
 }
 function showMultiChoise () {
     container.innerHTML = `
@@ -65,12 +70,35 @@ function showMultiChoise () {
         <label>
             <input type="radio" name="multiSvar" value="false"> Sträng
         </label>
+        <br>
         <label>
             <input type="radio" name="multiSvar" value="true"> Array
         </label>
         <br>
         <label>
             <input type="radio" name="multiSvar" value="false"> Nummer
+        </label>
+    `;
+}
+function showCheckQuestion () {
+    container.innerHTML = `
+        <h2>Fråga ${counter + 1}</h2>
+        <h3> ${questions[counter].question} </h3>
+
+        <label>
+            <input type="checkbox" name="checkSvar" value="true"> JavaScript
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" name="checkSvar" value="true"> TypeScript
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" name="checkSvar" value="false"> HTML
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" name="checkSvar" value="false"> CSS
         </label>
     `;
 }
@@ -82,21 +110,42 @@ function nextButton () {
 
         if (questions[counter].type === "trueFalse") {
             selected = document.querySelector('input[name="svar"]:checked'); 
+            userAnswers[counter] = selected ? selected.value === "true": null;
         }
         else if (questions[counter].type === "multiChoise") {
             selected = document.querySelector('input[name="multiSvar"]:checked');
+            userAnswers[counter] = selected ? selected.value === "true": null;
         }
-        userAnswers[counter] = selected ? selected.value === "true": null;
+        else if (questions[counter].type === "check") {
+            let selectedElements = document.querySelectorAll('input[name="checkSvar"]:checked');
+
+            let selectedValues = [];
+            for (let i=0; i < selectedElements.length; i++){
+                selectedValues.push(selectedElements[i].value === "true");
+            }
+
+            userAnswers[counter] = selectedValues.length > 0 ? selectedValues: null;
+        }
+
+        
 
         counter++;
 
         if (counter < questions.length) {
-            showQuestion(counter)
+            showQuestion(counter);
         }
         else {
             container.innerHTML = "Du har svarat på alla frågor.";
         }
 });
+}
+
+function arraysEqual(a, b) {
+    if (a.length !== b.length) return false;
+    for (let i = 0; i < a.length; i++) {
+        if (a[i] !== b[i]) return false;
+    }
+    return true;
 }
 
 nextButton ();
@@ -107,8 +156,6 @@ document.querySelector("#checkBtn").addEventListener("click", () => {
     const resultList = document.querySelector(".result-list");
     let score = 0;
     for (i=0;i < questions.length; i++){
-        const correct = questions[i].correctAnswer;
-        const answer = userAnswers[i];
 
         const resultOption = document.createElement("li");
         resultList.appendChild(resultOption);
@@ -122,16 +169,38 @@ document.querySelector("#checkBtn").addEventListener("click", () => {
         resultOption.appendChild(resultAnswer);
 
         const resultYourAnswer = document.createElement("p");
-        if (answer === null) {
-            resultYourAnswer.innerHTML = "Du svarade tyvärr inte på frågan: + 0 poäng!"
-        }
-        else if (answer === correct){
-            resultYourAnswer.innerHTML = "Du svarade Rätt: + 1 poäng!"
-            score++;
-        }
-        else {
-        resultYourAnswer.innerHTML = "Du svarade tyvärr Fel: + 0 poäng!"
-        }
-        resultOption.appendChild(resultYourAnswer);
+        
+        const answer = userAnswers[i];
+
+        if (questions[i].type === "check"){
+
+            if (answer === null) {
+                resultYourAnswer.innerHTML = "Du svarade tyvärr inte på frågan: + 0 poäng!"
+            }
+            else if (arraysEqual(answer, questions[i].correctAnswer)){
+                resultYourAnswer.innerHTML = "Du svarade Rätt: + 1 poäng!"
+                score++;
+            }
+            else {
+            resultYourAnswer.innerHTML = "Du svarade tyvärr Fel: + 0 poäng!"
+            }
+            resultOption.appendChild(resultYourAnswer);
+            
+            }
+            else {
+                const correct = questions[i].correctAnswer;
+
+                if (answer === null) {
+                    resultYourAnswer.innerHTML = "Du svarade tyvärr inte på frågan: + 0 poäng!"
+                }
+                else if (answer === correct){
+                    resultYourAnswer.innerHTML = "Du svarade Rätt: + 1 poäng!"
+                    score++;
+                }
+                else {
+                resultYourAnswer.innerHTML = "Du svarade tyvärr Fel: + 0 poäng!"
+                }
+                resultOption.appendChild(resultYourAnswer);
+            }
     }
 });
