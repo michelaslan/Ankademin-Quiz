@@ -166,6 +166,18 @@ function nextButton () {
         }
         else {
             container.innerHTML = "Du har svarat på alla frågor.";
+
+            document.querySelector("#nextBtn").remove();
+            
+            let checkBtn = document.createElement("button");
+            checkBtn.setAttribute("id", "checkBtn");
+            checkBtn.innerHTML = "Rätta";
+            document.body.appendChild(checkBtn);
+            let score = 0;
+
+            document.querySelector("#checkBtn").addEventListener("click", () => {
+            correctQuiz();
+            });
         }
 });
 }
@@ -177,14 +189,7 @@ function arraysEqual(a, b) {
     }
     return true;
 }
-
-nextButton ();
-let score = 0;
-/*let checkBtn = document.createElement("button");
-checkBtn.setAttribute("id", "checkBtn");
-checkButton.innerHTML = "Rätta";
-document.body.appendChild(checkBtn);*/
-document.querySelector("#checkBtn").addEventListener("click", () => {
+function correctQuiz (){
     container.innerHTML = "";
     const resultList = document.querySelector(".result-list");
     let score = 0;
@@ -239,5 +244,5 @@ document.querySelector("#checkBtn").addEventListener("click", () => {
     let scoreText = document.createElement("p");
     scoreText.innerHTML = `Du fick ${score}/10 poäng`;
     document.body.appendChild(scoreText);
-});
-
+}
+nextButton ();
