@@ -196,7 +196,7 @@ function lightMode () {
         }
         else {
             lightBtn.innerHTML = "Darkmode";
-            body.style.backgroundColor = "rgb(254, 201, 201)";
+            body.style.backgroundColor = "rgb(232, 252, 248)";
             body.style.color = "black";
             //resultOption.className = "resultOption-lightMode"
         }
