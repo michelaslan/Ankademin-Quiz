@@ -88,7 +88,7 @@ function nextButton () {
             
             let checkBtn = document.createElement("button");
             checkBtn.setAttribute("id", "checkBtn");
-            checkBtn.innerHTML = "Rätta";
+            checkBtn.innerHTML = "Se Resultat";
             document.body.appendChild(checkBtn);
             let score = 0;
 
@@ -114,9 +114,10 @@ function correctQuiz (){
 
         const resultOption = document.createElement("li");
         resultList.appendChild(resultOption);
+        resultOption.className = "resultOption";
 
         const resultQuestion = document.createElement("p");
-        resultQuestion.innerHTML = `Fråga ${i+1}: ${questions[i].question}`;
+        resultQuestion.innerHTML = `Fråga ${i+1}: ${questions[i].checkQuestion}`;
         resultOption.appendChild(resultQuestion);
 
         const resultAnswer = document.createElement("p");
@@ -124,41 +125,38 @@ function correctQuiz (){
         resultOption.appendChild(resultAnswer);
 
         const resultYourAnswer = document.createElement("p");
-        
         const answer = userAnswers[i];
-
         if (questions[i].type === "check"){
 
             if (answer === null) {
-                resultYourAnswer.innerHTML = "Du svarade tyvärr inte på frågan: + 0 poäng!"
+                resultYourAnswer.innerHTML = "Du svarade tyvärr inte på frågan: + 0 poäng!";
             }
             else if (arraysEqual(answer, questions[i].correctAnswer)){
-                resultYourAnswer.innerHTML = "Du svarade Rätt: + 1 poäng!"
+                resultYourAnswer.innerHTML = "Du svarade Rätt: + 1 poäng!";
                 score++;
             }
             else {
-            resultYourAnswer.innerHTML = "Du svarade tyvärr Fel: + 0 poäng!"
+            resultYourAnswer.innerHTML = "Du svarade tyvärr Fel: + 0 poäng!";
             }
-            resultOption.appendChild(resultYourAnswer);
-            
             }
             else {
                 const correct = questions[i].correctAnswer;
 
                 if (answer === null) {
-                    resultYourAnswer.innerHTML = "Du svarade tyvärr inte på frågan: + 0 poäng!"
+                    resultYourAnswer.innerHTML = "Du svarade tyvärr inte på frågan: + 0 poäng!";
                 }
                 else if (answer === correct){
-                    resultYourAnswer.innerHTML = "Du svarade Rätt: + 1 poäng!"
+                    resultYourAnswer.innerHTML = "Du svarade Rätt: + 1 poäng!";
                     score++;
                 }
                 else {
-                resultYourAnswer.innerHTML = "Du svarade tyvärr Fel: + 0 poäng!"
+                resultYourAnswer.innerHTML = "Du svarade tyvärr Fel: + 0 poäng!";
                 }
-                resultOption.appendChild(resultYourAnswer);
             }
+            resultOption.appendChild(resultYourAnswer);
     }
     let scoreText = document.createElement("p");
+    scoreText.className = "scoreText";
     if (score < 5){
         scoreText.innerHTML = `Underkänt! Du fick ${score}/10 poäng`;
         scoreText.style.color = "red";
@@ -174,7 +172,7 @@ function correctQuiz (){
     document.body.appendChild(scoreText);
 }
 function lightMode () {
-    let lightBtn = document.querySelector(".lightMode");
+    let lightBtn = document.querySelector("#lightMode");
     let body = document.querySelector("body");
     let i = 0;
     lightBtn.addEventListener("click", () => {
@@ -183,11 +181,13 @@ function lightMode () {
             lightBtn.innerHTML = "Lightmode";
             body.style.backgroundColor = "#333";
             body.style.color = "white";
+            //resultOption.className = "resultOption-darkMode"
         }
         else {
             lightBtn.innerHTML = "Darkmode";
             body.style.backgroundColor = "white";
             body.style.color = "black";
+            //resultOption.className = "resultOption-lightMode"
         }
         i++;
     });
@@ -197,12 +197,14 @@ const questions = [
 {
     type: "trueFalse",
     question: "Ankademins frontendutbildning innehåller HTML, CSS och JavaScript.",
+    checkQuestion: "Ankademins frontendutbildning innehåller HTML, CSS och JavaScript.",
     correctText: "Sant",
     correctAnswer: true
 },
 {
     type: "multiChoise",
     question: 'Vilken datatyp är ["äpple", "päron", "banan"] i JavaScript?',
+    checkQuestion: 'Vilken datatyp är ["äpple", "päron", "banan"] i JavaScript?',
     options: ["Object", "Sträng", "Array", "Number"],
     values: [false, false, true, false],
     correctText: "Array",
@@ -211,12 +213,14 @@ const questions = [
 {
     type: "trueFalse",
     question: "Ankademins frontendutbildning är 3 år lång",
+    checkQuestion: "Ankademins frontendutbildning är 3 år lång",
     correctText: "Falskt",
     correctAnswer: false
 },
 {
     type: "check",
     question: "Vilka av dessa är programmeringsspråk?",
+    checkQuestion: "Vilka av JavaScript, TypeScript, HTML och CSS är programmeringsspråk?",
     options: ["JavaScript", "TypeScript", "HTML", "CSS"],
     values: [true, true, false, false],
     correctText: "JavaScript, TypeScript",
@@ -225,12 +229,14 @@ const questions = [
 {
     type: "trueFalse",
     question: "CSS används för att styla och layouta webbsidor.",
+    checkQuestion: "CSS används för att styla och layouta webbsidor.",
     correctText: "Sant",
     correctAnswer: true
 },
 {
     type: "multiChoise",
     question: "Vilken metod används för att lägga till HTML-element dynamiskt via JavaScript?",
+    checkQuestion: "Vilken metod av createElement(), newHTML(), addNode() eller makeElement() används för att lägga till HTML-element dynamiskt via JavaScript?",
     options: ["createElement()", "newHTML()", "addNode()", "makeElement()"],
     values: [true, false, false, false],
     correctText: "createElement()",
@@ -239,6 +245,7 @@ const questions = [
 {
     type: "check",
     question: "Vilka av dessa är JavaScript-datatyper?",
+    checkQuestion: "Vilka av String, Boolean, Float, Object är JavaScript-datatyper?",
     options: ["String", "Boolean", "Float", "Object"],
     values: [true, true, false, true],
     correctText: "String, Boolean, Object",
@@ -247,18 +254,21 @@ const questions = [
 {
     type: "trueFalse",
     question: "En variabel i JavaScript kan inte ändra värde efter att den skapats.",
+    checkQuestion: "En variabel i JavaScript kan inte ändra värde efter att den skapats.",
     correctText: "Falskt",
     correctAnswer: false
 },
 {
     type: "trueFalse",
     question: "CSS Flexbox används för att placera element i rader eller kolumner.",
+    checkQuestion: "CSS Flexbox används för att placera element i rader eller kolumner.",
     correctText: "Sant",
     correctAnswer: true
 },
 {
     type: "multiChoise",
     question: "Vad betyder förkortningen HTML?",
+    checkQuestion: "Vad betyder förkortningen HTML: HyperText Markup Language, Home Tool Markup Language, HyperText Markdown Language eller Human Text Machine Layout?",
     options: ["HyperText Markup Language", "Home Tool Markup Language", "HyperText Markdown Language", "Human Text Machine Layout"],
     values: [true, false, false, false],
     correctText: "HyperText Markup Language",

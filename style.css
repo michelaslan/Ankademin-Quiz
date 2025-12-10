@@ -1,0 +1,66 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+#lightMode {
+    position:fixed;
+    right: 10px;
+    top: 10px;
+    border:solid 1px rgb(0, 0, 0);
+    width: 80px;
+    height:40px;
+    border-radius: 20px;
+    background-color: rgb(249, 245, 206);
+}
+#lightMode:hover {
+    background-color: rgb(255, 230, 0);
+}
+#nextBtn {
+    position:fixed;
+    bottom: 150px;
+    font-size: 15px;
+    border:solid 1px rgb(0, 0, 0);
+    width: 120px;
+    height:50px;
+    border-radius: 20px;
+    background-color: rgb(206, 249, 208);
+}
+#nextBtn:hover {
+    background-color: rgb(60, 255, 0);
+}
+#checkBtn {
+    position:fixed;
+    bottom: 150px;
+    font-size: 15px;
+    border:solid 1px rgb(0, 0, 0);
+    width: 120px;
+    height:50px;
+    border-radius: 20px;
+    background-color: rgb(249, 232, 206);
+}
+#checkBtn:hover {
+    background-color: rgb(255, 153, 0);
+}
+.resultOption { 
+    border-bottom: solid 2px rgb(255, 153, 0);
+    margin-top: 20px;
+}
+.resultOption p:first-child { 
+    font-weight: bold;
+}
+
+.result-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    list-style: none;
+    padding-left:0;
+    margin-left: 0;
+}
+.scoreText {
+    font-size: 30px;
+}
+
+
