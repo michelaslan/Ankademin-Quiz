@@ -1,83 +1,3 @@
-//Frågorna
-const questions = [
-{
-    type: "trueFalse",
-    question: "Ankademins frontendutbildning innehåller HTML, CSS och JavaScript.",
-    correctText: "Sant",
-    correctAnswer: true
-},
-{
-    type: "multiChoise",
-    question: 'Vilken datatyp är ["äpple", "päron", "banan"] i JavaScript?',
-    options: ["Object", "Sträng", "Array", "Number"],
-    values: [false, false, true, false],
-    correctText: "Array",
-    correctAnswer: true
-},
-{
-    type: "trueFalse",
-    question: "Ankademins frontendutbildning är 3 år lång",
-    correctText: "Falskt",
-    correctAnswer: false
-},
-{
-    type: "check",
-    question: "Vilka av dessa är programmeringsspråk?",
-    options: ["JavaScript", "TypeScript", "HTML", "CSS"],
-    values: [true, true, false, false],
-    correctText: "JavaScript, TypeScript",
-    correctAnswer: [true, true]
-},
-{
-    type: "trueFalse",
-    question: "CSS används för att styla och layouta webbsidor.",
-    correctText: "Sant",
-    correctAnswer: true
-},
-{
-    type: "multiChoise",
-    question: "Vilken metod används för att lägga till HTML-element dynamiskt via JavaScript?",
-    options: ["createElement()", "newHTML()", "addNode()", "makeElement()"],
-    values: [true, false, false, false],
-    correctText: "createElement()",
-    correctAnswer: true
-},
-{
-    type: "check",
-    question: "Vilka av dessa är JavaScript-datatyper?",
-    options: ["String", "Boolean", "Float", "Object"],
-    values: [true, true, false, true],
-    correctText: "String, Boolean, Object",
-    correctAnswer: [true, true, true] // 3 rätt (0,1,3)
-},
-{
-    type: "trueFalse",
-    question: "En variabel i JavaScript kan inte ändra värde efter att den skapats.",
-    correctText: "Falskt",
-    correctAnswer: false
-},
-{
-    type: "trueFalse",
-    question: "CSS Flexbox används för att placera element i rader eller kolumner.",
-    correctText: "Sant",
-    correctAnswer: true
-},
-{
-    type: "multiChoise",
-    question: "Vad betyder förkortningen HTML?",
-    options: ["HyperText Markup Language", "Home Tool Markup Language", "HyperText Markdown Language", "Human Text Machine Layout"],
-    values: [true, false, false, false],
-    correctText: "HyperText Markup Language",
-    correctAnswer: true
-},
-];
-//Array som sparar input
-const userAnswers = [];
-
-let counter = 0;
-let container = document.querySelector(".question-container");
-showQuestion();
-
 function showTrueFalse () {
     container.innerHTML = `
         <h2>Fråga ${counter + 1}</h2>
@@ -91,8 +11,7 @@ function showTrueFalse () {
             <input type="radio" name="svar" value="false"> Falskt
         </label>
     `;
-    }
-
+}
 function showQuestion (){
     if (questions[counter].type === "trueFalse"){
     showTrueFalse (counter);
@@ -119,7 +38,6 @@ function showMultiChoise () {
         `
         });
 }
-
 function showCheckQuestion () {
     container.innerHTML = `
         <h2>Fråga ${counter + 1}</h2>
@@ -135,7 +53,6 @@ function showCheckQuestion () {
     `;
         });
 }
-
 function nextButton () {
     document.querySelector("#nextBtn").addEventListener("click", () => {
     
@@ -181,7 +98,6 @@ function nextButton () {
         }
 });
 }
-
 function arraysEqual(a, b) {
     if (a.length !== b.length) return false;
     for (let i = 0; i < a.length; i++) {
@@ -190,6 +106,7 @@ function arraysEqual(a, b) {
     return true;
 }
 function correctQuiz (){
+    checkBtn.remove();
     container.innerHTML = "";
     const resultList = document.querySelector(".result-list");
     let score = 0;
@@ -242,7 +159,116 @@ function correctQuiz (){
             }
     }
     let scoreText = document.createElement("p");
-    scoreText.innerHTML = `Du fick ${score}/10 poäng`;
+    if (score < 5){
+        scoreText.innerHTML = `Underkänt! Du fick ${score}/10 poäng`;
+        scoreText.style.color = "red";
+    }
+    else if (5 < score < 8){
+        scoreText.innerHTML = `Bra! Du fick ${score}/10 poäng`;
+        scoreText.style.color = "orange";
+    }
+    else {
+        scoreText.innerHTML = `Riktigt bra jobbat! Du fick ${score}/10 poäng`;
+        scoreText.style.color = "green";
+    }
     document.body.appendChild(scoreText);
 }
+function lightMode () {
+    let lightBtn = document.querySelector(".lightMode");
+    let body = document.querySelector("body");
+    let i = 0;
+    lightBtn.addEventListener("click", () => {
+        
+        if ((i % 2) === 0){
+            lightBtn.innerHTML = "Lightmode";
+            body.style.backgroundColor = "#333";
+            body.style.color = "white";
+        }
+        else {
+            lightBtn.innerHTML = "Darkmode";
+            body.style.backgroundColor = "white";
+            body.style.color = "black";
+        }
+        i++;
+    });
+}
+//Frågorna
+const questions = [
+{
+    type: "trueFalse",
+    question: "Ankademins frontendutbildning innehåller HTML, CSS och JavaScript.",
+    correctText: "Sant",
+    correctAnswer: true
+},
+{
+    type: "multiChoise",
+    question: 'Vilken datatyp är ["äpple", "päron", "banan"] i JavaScript?',
+    options: ["Object", "Sträng", "Array", "Number"],
+    values: [false, false, true, false],
+    correctText: "Array",
+    correctAnswer: true
+},
+{
+    type: "trueFalse",
+    question: "Ankademins frontendutbildning är 3 år lång",
+    correctText: "Falskt",
+    correctAnswer: false
+},
+{
+    type: "check",
+    question: "Vilka av dessa är programmeringsspråk?",
+    options: ["JavaScript", "TypeScript", "HTML", "CSS"],
+    values: [true, true, false, false],
+    correctText: "JavaScript, TypeScript",
+    correctAnswer: [true, true]
+},
+{
+    type: "trueFalse",
+    question: "CSS används för att styla och layouta webbsidor.",
+    correctText: "Sant",
+    correctAnswer: true
+},
+{
+    type: "multiChoise",
+    question: "Vilken metod används för att lägga till HTML-element dynamiskt via JavaScript?",
+    options: ["createElement()", "newHTML()", "addNode()", "makeElement()"],
+    values: [true, false, false, false],
+    correctText: "createElement()",
+    correctAnswer: true
+},
+{
+    type: "check",
+    question: "Vilka av dessa är JavaScript-datatyper?",
+    options: ["String", "Boolean", "Float", "Object"],
+    values: [true, true, false, true],
+    correctText: "String, Boolean, Object",
+    correctAnswer: [true, true, true]
+},
+{
+    type: "trueFalse",
+    question: "En variabel i JavaScript kan inte ändra värde efter att den skapats.",
+    correctText: "Falskt",
+    correctAnswer: false
+},
+{
+    type: "trueFalse",
+    question: "CSS Flexbox används för att placera element i rader eller kolumner.",
+    correctText: "Sant",
+    correctAnswer: true
+},
+{
+    type: "multiChoise",
+    question: "Vad betyder förkortningen HTML?",
+    options: ["HyperText Markup Language", "Home Tool Markup Language", "HyperText Markdown Language", "Human Text Machine Layout"],
+    values: [true, false, false, false],
+    correctText: "HyperText Markup Language",
+    correctAnswer: true
+},
+];
+lightMode ();
+//Array som sparar input
+const userAnswers = [];
+let counter = 0;
+let container = document.querySelector(".question-container");
+showQuestion();
 nextButton ();
