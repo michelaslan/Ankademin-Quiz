@@ -24,7 +24,6 @@ body {
     border:solid 1px rgb(0, 0, 0);
     width: 120px;
     height:50px;
-    border-radius: 20px;
     background-color: rgb(206, 249, 208);
 }
 #nextBtn:hover {
@@ -37,7 +36,6 @@ body {
     border:solid 1px rgb(0, 0, 0);
     width: 120px;
     height:50px;
-    border-radius: 20px;
     background-color: rgb(249, 232, 206);
 }
 #checkBtn:hover {
