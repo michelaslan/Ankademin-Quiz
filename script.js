@@ -28,6 +28,48 @@ const questions = [
     correctText: "JavaScript, TypeScript",
     correctAnswer: [true, true]
 },
+{
+    type: "trueFalse",
+    question: "CSS används för att styla och layouta webbsidor.",
+    correctText: "Sant",
+    correctAnswer: true
+},
+{
+    type: "multiChoise",
+    question: "Vilken metod används för att lägga till HTML-element dynamiskt via JavaScript?",
+    options: ["createElement()", "newHTML()", "addNode()", "makeElement()"],
+    values: [true, false, false, false],
+    correctText: "createElement()",
+    correctAnswer: true
+},
+{
+    type: "check",
+    question: "Vilka av dessa är JavaScript-datatyper?",
+    options: ["String", "Boolean", "Float", "Object"],
+    values: [true, true, false, true],
+    correctText: "String, Boolean, Object",
+    correctAnswer: [true, true, true] // 3 rätt (0,1,3)
+},
+{
+    type: "trueFalse",
+    question: "En variabel i JavaScript kan inte ändra värde efter att den skapats.",
+    correctText: "Falskt",
+    correctAnswer: false
+},
+{
+    type: "trueFalse",
+    question: "CSS Flexbox används för att placera element i rader eller kolumner.",
+    correctText: "Sant",
+    correctAnswer: true
+},
+{
+    type: "multiChoise",
+    question: "Vad betyder förkortningen HTML?",
+    options: ["HyperText Markup Language", "Home Tool Markup Language", "HyperText Markdown Language", "Human Text Machine Layout"],
+    values: [true, false, false, false],
+    correctText: "HyperText Markup Language",
+    correctAnswer: true
+},
 ];
 //Array som sparar input
 const userAnswers = [];
@@ -114,11 +156,8 @@ function nextButton () {
             for (let i=0; i < selectedElements.length; i++){
                 selectedValues.push(selectedElements[i].value === "true");
             }
-
             userAnswers[counter] = selectedValues.length > 0 ? selectedValues: null;
         }
-
-        
 
         counter++;
 
@@ -140,8 +179,11 @@ function arraysEqual(a, b) {
 }
 
 nextButton ();
-
-
+let score = 0;
+/*let checkBtn = document.createElement("button");
+checkBtn.setAttribute("id", "checkBtn");
+checkButton.innerHTML = "Rätta";
+document.body.appendChild(checkBtn);*/
 document.querySelector("#checkBtn").addEventListener("click", () => {
     container.innerHTML = "";
     const resultList = document.querySelector(".result-list");
@@ -194,4 +236,8 @@ document.querySelector("#checkBtn").addEventListener("click", () => {
                 resultOption.appendChild(resultYourAnswer);
             }
     }
+    let scoreText = document.createElement("p");
+    scoreText.innerHTML = `Du fick ${score}/10 poäng`;
+    document.body.appendChild(scoreText);
 });
+
